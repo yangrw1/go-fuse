@@ -32,7 +32,7 @@ const (
 	defaultMaxWrite = 128 * 1024 // 128 kiB
 
 	minMaxReaders = 2
-	maxMaxReaders = 16
+	maxMaxReaders = 32
 )
 
 // Server contains the logic for reading from the FUSE device and
@@ -187,17 +187,17 @@ func NewServer(fs RawFileSystem, mountPoint string, opts *MountOptions) (*Server
 		o.Name = strings.Replace(name[:l], ",", ";", -1)
 	}
 
-	maxReaders := runtime.GOMAXPROCS(0)
-	if maxReaders < minMaxReaders {
-		maxReaders = minMaxReaders
-	} else if maxReaders > maxMaxReaders {
-		maxReaders = maxMaxReaders
-	}
+	// maxReaders := runtime.GOMAXPROCS(0)
+	// if maxReaders < minMaxReaders {
+	// 	maxReaders = minMaxReaders
+	// } else if maxReaders > maxMaxReaders {
+	// 	maxReaders = maxMaxReaders
+	// }
 
 	ms := &Server{
 		fileSystem:  fs,
 		opts:        &o,
-		maxReaders:  maxReaders,
+		maxReaders:  maxMaxReaders,
 		retrieveTab: make(map[uint64]*retrieveCacheRequest),
 		// OSX has races when multiple routines read from the
 		// FUSE device: on unmount, sometime some reads do not
