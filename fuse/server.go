@@ -22,7 +22,7 @@ import (
 
 const (
 	// Linux v4.20+ caps requests at 1 MiB. Older kernels at 128 kiB.
-	MAX_KERNEL_WRITE = 1024 * 1024
+	MAX_KERNEL_WRITE = 64 * 1024 * 1024
 
 	// Linux kernel constant from include/uapi/linux/fuse.h
 	// Reads from /dev/fuse that are smaller fail with EINVAL.
@@ -32,7 +32,7 @@ const (
 	defaultMaxWrite = 128 * 1024 // 128 kiB
 
 	minMaxReaders = 2
-	maxMaxReaders = 32
+	maxMaxReaders = 16
 )
 
 // Server contains the logic for reading from the FUSE device and
