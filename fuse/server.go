@@ -193,6 +193,7 @@ func NewServer(fs RawFileSystem, mountPoint string, opts *MountOptions) (*Server
 	// } else if maxReaders > maxMaxReaders {
 	// 	maxReaders = maxMaxReaders
 	// }
+	fmt.Printf("use maxMaxReaders: %d\n", maxMaxReaders)
 
 	ms := &Server{
 		fileSystem:  fs,
