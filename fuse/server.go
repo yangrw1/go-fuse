@@ -32,7 +32,7 @@ const (
 	defaultMaxWrite = 128 * 1024 // 128 kiB
 
 	minMaxReaders = 2
-	maxMaxReaders = 16
+	maxMaxReaders = 32
 )
 
 // Server contains the logic for reading from the FUSE device and
@@ -193,7 +193,8 @@ func NewServer(fs RawFileSystem, mountPoint string, opts *MountOptions) (*Server
 	// } else if maxReaders > maxMaxReaders {
 	// 	maxReaders = maxMaxReaders
 	// }
-	fmt.Printf("use maxMaxReaders: %d, %d, %d\n", maxMaxReaders, MAX_KERNEL_WRITE, o.MaxWrite)
+	fmt.Printf("use maxMaxReaders: %d, %d, %d, %d\n", maxMaxReaders, MAX_KERNEL_WRITE, o.MaxWrite, o.MaxBackground)
+	fmt.Println("single reader", runtime.GOOS == "darwin")
 
 	ms := &Server{
 		fileSystem:  fs,
